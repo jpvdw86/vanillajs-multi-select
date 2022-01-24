@@ -12,8 +12,16 @@ import { Controller } from '@hotwired/stimulus';
 import { VanillaJsMultiSelectBox } from "vanillajs-muliti-select";
 
 /**
- * Documentation https://github.com/PhilippeMarcMeyer/vanillaSelectBox
+ * Documentation https://github.com/jpvdw86/vanillajs-muliti-select
  * Usage:
+ * <div class="col-12 col-md-4 col-xl-2">
+ *     <label class="visually-hidden-focusable" for="selectboxExample">Example</label>
+ *     <select data-controller="select-box" data-placeholder="Example-placeholder" multiple class="form-select" id="selectboxExample" name="values[]">
+ *     <option value="1">1</option>
+ *     <option value="2">2</option>
+ *     <option value="3">3</option>
+ *     </select>
+ * </div>
  */
 export default class extends Controller {
     selectBox
