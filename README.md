@@ -9,7 +9,7 @@ Converted the code, to Bootstrap (5) styling, and can be use in with stimulus co
 
 ```javascript
 import { Controller } from '@hotwired/stimulus';
-import { VanillaJsMultiSelectBox } from "VanillaJsMultiSelectBox";
+import { VanillaJsMultiSelectBox } from "vanillajs-muliti-select";
 
 /**
  * Documentation https://github.com/PhilippeMarcMeyer/vanillaSelectBox
