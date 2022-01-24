@@ -1,0 +1,62 @@
+.multi-selectbox {
+  padding-left: 0;
+  .dropdown-menu {
+    padding: 10px
+  }
+  button {
+    text-align: left;
+    z-index: 1;
+    line-height: 1.5;
+    padding-left: 12px;
+    border: none;
+    color: rgb(122, 122, 126);
+    background: white !important;
+    max-width: 500px;
+  }
+  ul {
+    list-style: none;
+    left:0;
+    text-align: left;
+    z-index:1000;
+    box-shadow: none;
+    margin:0;
+    padding:0;
+    li {
+      padding-left:10px;
+      white-space: nowrap;
+      width: 100%;
+      color:#212529;
+    }
+  }
+}
+
+
+.hidden-search {
+  display: none !important;
+}
+
+
+li[data-parent].closed{
+  display:none !important;
+}
+
+li[data-parent].open:not(.hidden-search){
+  display:block !important;
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+
+li[data-parent]{
+  padding-left: 50px !important;
+}
+
