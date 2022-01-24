@@ -22,7 +22,7 @@ let VSBoxCounter = function () {
     };
 }();
 
-export function VanillaMultiSelectBox(element, options) {
+export function VanillaJsMultiSelectBox(element, options) {
     let self = this;
     this.instanceOffset = VSBoxCounter.set(self);
     this.root = element;
@@ -608,7 +608,7 @@ export function VanillaMultiSelectBox(element, options) {
     this.checkUncheckAll();
 }
 
-VanillaMultiSelectBox.prototype.buildSelect = function (data) {
+VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
     let self = this;
     if(data == null || data.length < 1) return;
     if(!self.isOptgroups){
@@ -657,7 +657,7 @@ VanillaMultiSelectBox.prototype.buildSelect = function (data) {
     }
 }
 
-VanillaMultiSelectBox.prototype.remoteSearchIntegrate = function (data) {
+VanillaJsMultiSelectBox.prototype.remoteSearchIntegrate = function (data) {
     let self = this;
 
     if (data == null || data.length == 0) {
@@ -680,7 +680,7 @@ VanillaMultiSelectBox.prototype.remoteSearchIntegrate = function (data) {
     }
 }
 
-VanillaMultiSelectBox.prototype.optionsCheckedToData = function () {
+VanillaJsMultiSelectBox.prototype.optionsCheckedToData = function () {
     let self = this;
     let dataChecked = [];
     let treeOptions = self.ul.querySelectorAll("li.active:not(.grouped-option)");
@@ -707,7 +707,7 @@ VanillaMultiSelectBox.prototype.optionsCheckedToData = function () {
     return dataChecked;
 }
 
-VanillaMultiSelectBox.prototype.removeOptionsNotChecked = function (data) {
+VanillaJsMultiSelectBox.prototype.removeOptionsNotChecked = function (data) {
     let self = this;
     let minimumSize = self.onInitSize;
     let newSearchSize = data == null ? 0 : data.length;
@@ -726,7 +726,7 @@ VanillaMultiSelectBox.prototype.removeOptionsNotChecked = function (data) {
     }
 }
 
-VanillaMultiSelectBox.prototype.changeTree = function (data, options) {
+VanillaJsMultiSelectBox.prototype.changeTree = function (data, options) {
     let self = this;
     self.empty();
     self.remoteSearchIntegrateIt(data);
@@ -739,7 +739,7 @@ VanillaMultiSelectBox.prototype.changeTree = function (data, options) {
     self.listElements = this.drop.querySelectorAll("li:not(.grouped-option)");
 }
 
-VanillaMultiSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
+VanillaJsMultiSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
     let self = this;
     if (data == null || data.length == 0) return;
     while(self.root.firstChild)
@@ -749,7 +749,7 @@ VanillaMultiSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
     self.reloadTree();
 }
 
-VanillaMultiSelectBox.prototype.reloadTree = function () {
+VanillaJsMultiSelectBox.prototype.reloadTree = function () {
     let self = this;
     let lis = self.ul.querySelectorAll("li");
     if (lis != null) {
@@ -903,14 +903,14 @@ VanillaMultiSelectBox.prototype.reloadTree = function () {
 
 }
 
-VanillaMultiSelectBox.prototype.disableItems = function (values) {
+VanillaJsMultiSelectBox.prototype.disableItems = function (values) {
     let self = this;
     let foundValues = [];
-    if (VanillaMultiSelectBox_type(values) == "string") {
+    if (VanillaJsMultiSelectBox_type(values) == "string") {
         values = values.split(",");
     }
 
-    if (VanillaMultiSelectBox_type(values) == "array") {
+    if (VanillaJsMultiSelectBox_type(values) == "array") {
         Array.prototype.slice.call(self.options).forEach(function (x) {
             if (values.indexOf(x.value) != -1) {
                 foundValues.push(x.value);
@@ -926,14 +926,14 @@ VanillaMultiSelectBox.prototype.disableItems = function (values) {
     });
 }
 
-VanillaMultiSelectBox.prototype.enableItems = function (values) {
+VanillaJsMultiSelectBox.prototype.enableItems = function (values) {
     let self = this;
     let foundValues = [];
-    if (VanillaMultiSelectBox_type(values) == "string") {
+    if (VanillaJsMultiSelectBox_type(values) == "string") {
         values = values.split(",");
     }
 
-    if (VanillaMultiSelectBox_type(values) == "array") {
+    if (VanillaJsMultiSelectBox_type(values) == "array") {
         Array.prototype.slice.call(self.options).forEach(function (x) {
             if (values.indexOf(x.value) != -1) {
                 foundValues.push(x.value);
@@ -949,7 +949,7 @@ VanillaMultiSelectBox.prototype.enableItems = function (values) {
     });
 }
 
-VanillaMultiSelectBox.prototype.checkSelectMax = function (nrActives) {
+VanillaJsMultiSelectBox.prototype.checkSelectMax = function (nrActives) {
     let self = this;
     if (self.maxSelect == Infinity || !self.isMultiple) return;
     if (self.maxSelect <= nrActives) {
@@ -969,7 +969,7 @@ VanillaMultiSelectBox.prototype.checkSelectMax = function (nrActives) {
     }
 }
 
-VanillaMultiSelectBox.prototype.checkUncheckFromChild = function (liClicked) {
+VanillaJsMultiSelectBox.prototype.checkUncheckFromChild = function (liClicked) {
     let self = this;
     let parentId = liClicked.getAttribute('data-parent');
     let parentLi = document.getElementById(parentId);
@@ -995,7 +995,7 @@ VanillaMultiSelectBox.prototype.checkUncheckFromChild = function (liClicked) {
     }
 }
 
-VanillaMultiSelectBox.prototype.checkUncheckFromParent = function (liClicked) {
+VanillaJsMultiSelectBox.prototype.checkUncheckFromParent = function (liClicked) {
     let self = this;
     let parentId = liClicked.id;
     if (!self.isMultiple) return;
@@ -1034,7 +1034,7 @@ VanillaMultiSelectBox.prototype.checkUncheckFromParent = function (liClicked) {
     }
 }
 
-VanillaMultiSelectBox.prototype.checkUncheckAll = function () {
+VanillaJsMultiSelectBox.prototype.checkUncheckAll = function () {
     let self = this;
     if (!self.isMultiple) return;
     let nrChecked = 0;
@@ -1072,7 +1072,7 @@ VanillaMultiSelectBox.prototype.checkUncheckAll = function () {
     }
 }
 
-VanillaMultiSelectBox.prototype.setValue = function (values) {
+VanillaJsMultiSelectBox.prototype.setValue = function (values) {
     let self = this;
     let listElements = self.drop.querySelectorAll("li");
 
@@ -1080,7 +1080,7 @@ VanillaMultiSelectBox.prototype.setValue = function (values) {
         self.empty();
     } else {
         if (self.isMultiple) {
-            if (VanillaMultiSelectBox_type(values) == "string") {
+            if (VanillaJsMultiSelectBox_type(values) == "string") {
                 if (values === "all") {
                     values = [];
                     Array.prototype.slice.call(listElements).forEach(function (x) {
@@ -1124,7 +1124,7 @@ VanillaMultiSelectBox.prototype.setValue = function (values) {
                 }
             }
             let foundValues = [];
-            if (VanillaMultiSelectBox_type(values) == "array") {
+            if (VanillaJsMultiSelectBox_type(values) == "array") {
                 Array.prototype.slice.call(self.options).forEach(function (x) {
                     if (values.indexOf(x.value) !== -1) {
                         x.selected = true;
@@ -1203,13 +1203,13 @@ VanillaMultiSelectBox.prototype.setValue = function (values) {
     }
 }
 
-VanillaMultiSelectBox.prototype.privateSendChange = function () {
+VanillaJsMultiSelectBox.prototype.privateSendChange = function () {
     let event = document.createEvent('HTMLEvents');
     event.initEvent('change', true, false);
     this.root.dispatchEvent(event);
 }
 
-VanillaMultiSelectBox.prototype.empty = function () {
+VanillaJsMultiSelectBox.prototype.empty = function () {
     Array.prototype.slice.call(this.listElements).forEach(function (x) {
         x.classList.remove("active");
     });
@@ -1230,7 +1230,7 @@ VanillaMultiSelectBox.prototype.empty = function () {
     this.privateSendChange();
 }
 
-VanillaMultiSelectBox.prototype.destroy = function () {
+VanillaJsMultiSelectBox.prototype.destroy = function () {
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
         VSBoxCounter.remove(this.instanceOffset);
@@ -1238,7 +1238,7 @@ VanillaMultiSelectBox.prototype.destroy = function () {
         this.root.style.display = "inline-block";
     }
 }
-VanillaMultiSelectBox.prototype.disable = function () {
+VanillaJsMultiSelectBox.prototype.disable = function () {
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
         button = already.querySelector("button")
@@ -1246,7 +1246,7 @@ VanillaMultiSelectBox.prototype.disable = function () {
         this.isDisabled = true;
     }
 }
-VanillaMultiSelectBox.prototype.enable = function () {
+VanillaJsMultiSelectBox.prototype.enable = function () {
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
         button = already.querySelector("button")
@@ -1255,7 +1255,7 @@ VanillaMultiSelectBox.prototype.enable = function () {
     }
 }
 
-VanillaMultiSelectBox.prototype.showOptions = function () {
+VanillaJsMultiSelectBox.prototype.showOptions = function () {
     console.log(this.userOptions);
 }
 // Polyfills for IE
@@ -1267,7 +1267,7 @@ if (!('remove' in Element.prototype)) {
     };
 }
 
-export function VanillaMultiSelectBox_type(target) {
+export function VanillaJsMultiSelectBox_type(target) {
     const computedType = Object.prototype.toString.call(target);
     const stripped = computedType.replace("[object ", "").replace("]", "");
     const lowercased = stripped.toLowerCase();
