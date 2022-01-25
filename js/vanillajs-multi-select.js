@@ -135,7 +135,7 @@ export function VanillaJsMultiSelectBox(element, options) {
     this.closeOrder = function () {
         let self = this;
         if (!self.userOptions.stayOpen) {
-            self.drop.style.visibility = "hidden";
+            self.drop.classList.remove("show");
             if (self.search) {
                 self.inputBox.value = "";
                 Array.prototype.slice.call(self.listElements).forEach(function (x) {

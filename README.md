@@ -8,15 +8,20 @@ Converted the code, to Bootstrap (5) styling, and can be use in with stimulus co
 
 
 ```javascript
+/** multi-select_controller.js */
 import { Controller } from '@hotwired/stimulus';
-import { VanillaJsMultiSelectBox } from "vanillajs-muliti-select";
+import { VanillaJsMultiSelectBox } from "vanillajs-multi-select";
 
 /**
- * Documentation https://github.com/jpvdw86/vanillajs-muliti-select
+ * Documentation https://github.com/jpvdw86/vanillajs-multi-select
  * Usage:
+ * 
+ * //size = "amount of items, when to see the counter"
+ * //data-placeHolder = "Default placeholder"
+ * 
  * <div class="col-12 col-md-4 col-xl-2">
  *     <label class="visually-hidden-focusable" for="selectboxExample">Example</label>
- *     <select data-controller="select-box" data-placeholder="Example-placeholder" multiple class="form-select" id="selectboxExample" name="values[]">
+ *     <select data-controller="multi-select" data-placeholder="Example-placeholder" multiple class="form-select" id="selectboxExample" name="values[]" size="3">
  *     <option value="1">1</option>
  *     <option value="2">2</option>
  *     <option value="3">3</option>
@@ -24,12 +29,12 @@ import { VanillaJsMultiSelectBox } from "vanillajs-muliti-select";
  * </div>
  */
 export default class extends Controller {
-    selectBox
-    translations = { "all": "Alles", "items": "items", "selectAll": "Selecteer alles", "clearAll": "Deselecteer alles" };
+    multiSelect
+    translations = { "all": "Alles", "items": "geselecteerd", "selectAll": "Selecteer alles", "clearAll": "Deselecteer alles" };
 
 
     connect() {
-        this.selectBox = new VanillaSelectBox(this.element,
+        this.multiSelect = new VanillaSelectBox(this.element,
             {
                 search:true,
                 translations: this.translations,
@@ -37,6 +42,5 @@ export default class extends Controller {
             }
         );
     }
-
 }
 ```
