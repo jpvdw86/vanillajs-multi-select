@@ -582,7 +582,11 @@ export function VanillaJsMultiSelectBox(element, options) {
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
-                self.title.textContent = selectedTexts;
+                if (self.userOptions.placeHolder != ""){
+                    self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
+                } else {
+                    self.title.textContent = selectedTexts;
+                }
                 self.checkSelectMax(nrActives);
                 self.checkUncheckAll();
                 self.privateSendChange();
@@ -1058,13 +1062,24 @@ VanillaJsMultiSelectBox.prototype.checkUncheckAll = function () {
     if (checkAllElement) {
         if (nrChecked === nrCheckable) {
             // check the checkAll checkbox
-            self.title.textContent = self.userOptions.translations.all || "all";
+            let selectedTexts = self.userOptions.translations.all || "all";
+            if (self.userOptions.placeHolder != ""){
+                self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
+            } else {
+                self.title.textContent = selectedTexts;
+            }
             checkAllElement.classList.add("active");
             checkAllElement.innerText = self.userOptions.translations.clearAll;
             checkAllElement.setAttribute('data-selected', 'true')
         } else if (nrChecked === 0) {
             // uncheck the checkAll checkbox
-            self.title.textContent = self.userOptions.placeHolder || "-";
+            let selectedTexts = self.userOptions.placeHolder || "-";
+            if (self.userOptions.placeHolder != ""){
+                let selectedTexts = "-";
+                self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
+            } else {
+                self.title.textContent = selectedTexts;
+            }
             checkAllElement.classList.remove("active");
             checkAllElement.innerText = self.userOptions.translations.selectAll;
             checkAllElement.setAttribute('data-selected', 'false')
@@ -1159,7 +1174,11 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
-                self.title.textContent = selectedTexts;
+                if (self.userOptions.placeHolder != ""){
+                    self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
+                } else {
+                    self.title.textContent = selectedTexts;
+                }
                 self.privateSendChange();
             }
             self.checkUncheckAll();
