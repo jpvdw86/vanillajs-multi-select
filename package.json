@@ -1,5 +1,5 @@
 {
-  "name": "vanillajs-muliti-select",
+  "name": "vanillajs-multi-select",
   "version": "1.0.0",
   "description": "A vanilla JavaScript multiselect dropdown with boostrap styling",
   "type": "module",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jpvdw86/vanillajs-muliti-select.git"
+    "url": "git+https://github.com/jpvdw86/vanillajs-multi-select.git"
   },
   "keywords": [
     "bootstrap",
@@ -21,7 +21,7 @@
   ],
   "author": "jpvdw",
   "license": "MIT",
-  "homepage": "https://github.com/jpvdw86/vanillajs-muliti-select#readme",
+  "homepage": "https://github.com/jpvdw86/vanillajs-multi-select#readme",
   "devDependencies": {
     "bootstrap": "^5.0.0",
     "sass": "^1.45.1"
