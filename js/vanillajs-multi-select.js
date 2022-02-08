@@ -482,8 +482,6 @@ export function VanillaJsMultiSelectBox(element, options) {
             let isCheckCommand = e.target.tagName === 'I';
             let liClicked = e.target.parentElement;
 
-            console.log(liClicked);
-
             if (!liClicked.hasAttribute("data-value")) {
                 if (liClicked.classList.contains("grouped-option")) {
                     if (!isShowHideCommand && !isCheckCommand) return;
@@ -1207,7 +1205,6 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                 }
             });
             if (found) {
-                console.log(text)
                 self.title.textContent = text;
                 if (self.userOptions.placeHolder !== "" && self.title.textContent === "") {
                     self.title.textContent = self.userOptions.placeHolder;
@@ -1275,9 +1272,6 @@ VanillaJsMultiSelectBox.prototype.enable = function () {
     }
 }
 
-VanillaJsMultiSelectBox.prototype.showOptions = function () {
-    console.log(this.userOptions);
-}
 // Polyfills for IE
 if (!('remove' in Element.prototype)) {
     Element.prototype.remove = function () {
