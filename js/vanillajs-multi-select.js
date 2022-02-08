@@ -52,7 +52,7 @@ export function VanillaJsMultiSelectBox(element, options) {
     this.onInit = null;
     this.onSearch = null; // if isRemote is true : a user defined function that loads more options from the back
     this.onInitSize = null;
-    this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value", "style"];
+    this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value"];
     this.forbidenClasses = ["active", "disabled"];
     this.userOptions = {
         maxWidth: 500,
@@ -132,8 +132,6 @@ export function VanillaJsMultiSelectBox(element, options) {
         }
     }
 
-    console.log(this.userOptions)
-
     this.closeOrder = function () {
         let self = this;
         if (!self.userOptions.stayOpen) {
@@ -174,7 +172,6 @@ export function VanillaJsMultiSelectBox(element, options) {
         this.main.classList.add("form-select");
         this.main.classList.add("multi-selectbox");
         this.main.setAttribute("id", "btn-group-" + this.rootToken);
-        this.main.style.marginLeft = this.main.style.marginLeft;
         if (self.userOptions.stayOpen) {
             this.main.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
         }
@@ -234,7 +231,7 @@ export function VanillaJsMultiSelectBox(element, options) {
             }
 
             this.ul.addEventListener("scroll", function (e) {
-                var y = this.scrollTop;
+                const y = this.scrollTop;
                 self.searchZone.parentNode.style.top = y + "px";
             });
         }
@@ -291,7 +288,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                 li.classList.add("active");
                 if (!self.isMultiple) {
                     self.title.textContent = text;
-                    if (classes.length != 0) {
+                    if (classes.length !== 0) {
                         classes.forEach(function (x) {
                             self.title.classList.add(x);
                         });
@@ -641,7 +638,7 @@ VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
             let anOptgroup = document.createElement("optgroup");
             anOptgroup.setAttribute("label", group);
 
-            options = data.filter(function(x){
+            const options = data.filter(function(x){
                 return x.parent === group;
             });
             options.forEach(function (x) {
@@ -649,7 +646,7 @@ VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
                 anOption.value = x.value;
                 anOption.text = x.text;
                 if(x.selected){
-                    anOption.setAttribute("selected",true)
+                    anOption.setAttribute("selected",'selected')
                 }
                 anOptgroup.appendChild(anOption);
             });
@@ -774,8 +771,6 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
     let selectedTexts = ""
     let sep = "";
     let nrActives = 0;
-    let nrAll = 0;
-
     if (self.isOptgroups) {
         if (this.root.getElementsByTagName('optgroup') !== null) {
             self.options = this.root.options;
@@ -819,7 +814,7 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
                     li.setAttribute("data-value", value);
                     li.setAttribute("data-text", text);
                     li.setAttribute("data-parent", optId);
-                    if (classes.length != 0) {
+                    if (classes.length !== 0) {
                         classes.forEach(function (x) {
                             li.classList.add(x);
                         });
@@ -1212,6 +1207,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                 }
             });
             if (found) {
+                console.log(text)
                 self.title.textContent = text;
                 if (self.userOptions.placeHolder !== "" && self.title.textContent === "") {
                     self.title.textContent = self.userOptions.placeHolder;
