@@ -63,7 +63,8 @@ export function VanillaJsMultiSelectBox(element, options) {
         placeHolder: "",
         stayOpen: false,
         disableSelectAll: false,
-        textColor: "#7a7a7e"
+        textColor: "#7a7a7e",
+        disableAllMessage: false
     }
     if (options) {
         if (options.maxWidth != undefined) {
@@ -120,6 +121,10 @@ export function VanillaJsMultiSelectBox(element, options) {
 
         if (options.disableSelectAll != undefined) {
             this.userOptions.disableSelectAll = options.disableSelectAll;
+        }
+
+        if (options.disableAllMessage != undefined) {
+            this.userOptions.disableAllMessage = options.disableAllMessage;
         }
 
         if (options.maxSelect != undefined && !isNaN(options.maxSelect) && options.maxSelect >= 1) {
@@ -371,7 +376,7 @@ export function VanillaJsMultiSelectBox(element, options) {
 
         let optionsLength = self.options.length - Number(!self.userOptions.disableSelectAll);
 
-        if (optionsLength == nrActives) { // Bastoune idea to preserve the placeholder
+        if (optionsLength === nrActives && self.userOptions.disableAllMessage === false) { // Bastoune idea to preserve the placeholder
             let wordForAll = self.userOptions.translations.all || "all";
             selectedTexts = wordForAll;
         } else if (self.multipleSize != -1) {
@@ -573,7 +578,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                         sep = ",";
                     }
                 }
-                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll)) {
+                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
                     let wordForAll = self.userOptions.translations.all || "all";
                     selectedTexts = wordForAll;
                 } else if (self.multipleSize != -1) {
@@ -1060,7 +1065,7 @@ VanillaJsMultiSelectBox.prototype.checkUncheckAll = function () {
     });
 
     if (checkAllElement) {
-        if (nrChecked === nrCheckable) {
+        if (nrChecked === nrCheckable && self.userOptions.disableAllMessage === false) {
             // check the checkAll checkbox
             let selectedTexts = self.userOptions.translations.all || "all";
             if (self.userOptions.placeHolder != ""){
@@ -1165,7 +1170,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                         x.classList.remove("active");
                     }
                 });
-                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll)) {
+                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
                     let wordForAll = self.userOptions.translations.all || "all";
                     selectedTexts = wordForAll;
                 } else if (self.multipleSize != -1) {
