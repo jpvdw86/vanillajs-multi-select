@@ -8,13 +8,13 @@ let VSBoxCounter = function () {
         },
         remove: function (instanceNr) {
             let temp = instances.filter(function (x) {
-                return x.offset != instanceNr;
+                return x.offset !== instanceNr;
             })
             instances = temp.splice(0);
         },
         closeAllButMe: function (instanceNr) {
             instances.forEach(function (x) {
-                if (x.offset != instanceNr) {
+                if (x.offset !== instanceNr) {
                     x.ptr.closeOrder();
                 }
             });
@@ -52,7 +52,7 @@ export function VanillaJsMultiSelectBox(element, options) {
     this.onInit = null;
     this.onSearch = null; // if isRemote is true : a user defined function that loads more options from the back
     this.onInitSize = null;
-    this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value", "style"];
+    this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value"];
     this.forbidenClasses = ["active", "disabled"];
     this.userOptions = {
         maxWidth: 500,
@@ -67,19 +67,19 @@ export function VanillaJsMultiSelectBox(element, options) {
         disableAllMessage: false
     }
     if (options) {
-        if (options.maxWidth != undefined) {
+        if (options.maxWidth !== undefined) {
             this.userOptions.maxWidth = options.maxWidth;
         }
-        if (options.minWidth != undefined) {
+        if (options.minWidth !== undefined) {
             this.userOptions.minWidth = options.minWidth;
         }
-        if (options.maxHeight != undefined) {
+        if (options.maxHeight !== undefined) {
             this.userOptions.maxHeight = options.maxHeight;
         }
-        if (options.textColor != undefined) {
+        if (options.textColor !== undefined) {
             this.userOptions.textColor = options.textColor;
         }
-        if (options.translations != undefined) {
+        if (options.translations !== undefined) {
             for (var property in options.translations) {
                 if (options.translations.hasOwnProperty(property)) {
                     if (this.userOptions.translations[property]) {
@@ -88,51 +88,51 @@ export function VanillaJsMultiSelectBox(element, options) {
                 }
             }
         }
-        if (options.placeHolder != undefined) {
+        if (options.placeHolder !== undefined) {
             this.userOptions.placeHolder = options.placeHolder;
         }
-        if (options.search != undefined) {
+        if (options.search !== undefined) {
             this.search = options.search;
         }
-        if (options.title != undefined) {
+        if (options.title !== undefined) {
             this.title = options.title;
         }
-        if (options.remote != undefined && options.remote) {
+        if (options.remote !== undefined && options.remote) {
 
             // user defined onInit  function
-            if (options.remote.onInit!= undefined && typeof options.remote.onInit === 'function') {
+            if (options.remote.onInit !== undefined && typeof options.remote.onInit === 'function') {
                 this.onInit = options.remote.onInit;
                 this.isInitRemote = true;
             }
-            if (options.remote.onInitSize != undefined) {
+            if (options.remote.onInitSize !== undefined) {
                 this.onInitSize = options.remote.onInitSize;
                 if (this.onInitSize < 3) this.onInitSize = 3;
             }
             // user defined remote search function
-            if (options.remote.onSearch != undefined && typeof options.remote.onSearch === 'function') {
+            if (options.remote.onSearch !== undefined && typeof options.remote.onSearch === 'function') {
                 this.onSearch = options.remote.onSearch;
                 this.isSearchRemote = true;
             }
         }
 
-        if (options.stayOpen != undefined) {
+        if (options.stayOpen !== undefined) {
             this.userOptions.stayOpen = options.stayOpen;
         }
 
-        if (options.disableSelectAll != undefined) {
+        if (options.disableSelectAll !== undefined) {
             this.userOptions.disableSelectAll = options.disableSelectAll;
         }
 
-        if (options.disableAllMessage != undefined) {
+        if (options.disableAllMessage !== undefined) {
             this.userOptions.disableAllMessage = options.disableAllMessage;
         }
 
-        if (options.maxSelect != undefined && !isNaN(options.maxSelect) && options.maxSelect >= 1) {
+        if (options.maxSelect !== undefined && !isNaN(options.maxSelect) && options.maxSelect >= 1) {
             this.maxSelect = options.maxSelect;
             this.userOptions.disableSelectAll = true;
         }
 
-        if (options.maxOptionWidth != undefined && !isNaN(options.maxOptionWidth) && options.maxOptionWidth >= 20) {
+        if (options.maxOptionWidth !== undefined && !isNaN(options.maxOptionWidth) && options.maxOptionWidth >= 20) {
             this.maxOptionWidth = options.maxOptionWidth;
         }
     }
@@ -177,7 +177,6 @@ export function VanillaJsMultiSelectBox(element, options) {
         this.main.classList.add("form-select");
         this.main.classList.add("multi-selectbox");
         this.main.setAttribute("id", "btn-group-" + this.rootToken);
-        this.main.style.marginLeft = this.main.style.marginLeft;
         if (self.userOptions.stayOpen) {
             this.main.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
         }
@@ -237,7 +236,7 @@ export function VanillaJsMultiSelectBox(element, options) {
             }
 
             this.ul.addEventListener("scroll", function (e) {
-                var y = this.scrollTop;
+                const y = this.scrollTop;
                 self.searchZone.parentNode.style.top = y + "px";
             });
         }
@@ -294,7 +293,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                 li.classList.add("active");
                 if (!self.isMultiple) {
                     self.title.textContent = text;
-                    if (classes.length != 0) {
+                    if (classes.length !== 0) {
                         classes.forEach(function (x) {
                             self.title.classList.add(x);
                         });
@@ -362,7 +361,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                         li.classList.add("active");
                         if (!self.isMultiple) {
                             self.title.textContent = text;
-                            if (classes.length != 0) {
+                            if (classes.length !== 0) {
                                 classes.forEach(function (x) {
                                     self.title.classList.add(x);
                                 });
@@ -377,8 +376,7 @@ export function VanillaJsMultiSelectBox(element, options) {
         let optionsLength = self.options.length - Number(!self.userOptions.disableSelectAll);
 
         if (optionsLength === nrActives && self.userOptions.disableAllMessage === false) { // Bastoune idea to preserve the placeholder
-            let wordForAll = self.userOptions.translations.all || "all";
-            selectedTexts = wordForAll;
+            selectedTexts = self.userOptions.translations.all || "all";
         } else if (self.multipleSize != -1) {
             if (nrActives > self.multipleSize) {
                 let wordForItems = self.userOptions.translations.items || "items"
@@ -386,9 +384,13 @@ export function VanillaJsMultiSelectBox(element, options) {
             }
         }
         if (self.isMultiple) {
-            self.title.innerHTML = selectedTexts;
+            if (self.userOptions.placeHolder !== ""){
+                self.title.innerHTML = self.userOptions.placeHolder + ": "+selectedTexts;
+            } else {
+                self.title.innerHTML = selectedTexts;
+            }
         }
-        if (self.userOptions.placeHolder != "" && self.title.textContent == "") {
+        if (self.userOptions.placeHolder !== "" && self.title.textContent === "") {
             self.title.textContent = self.userOptions.placeHolder;
         }
         self.listElements = self.drop.querySelectorAll("li:not(.grouped-option)");
@@ -400,7 +402,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                 let nrChecked = 0;
                 let selectAll = null;
                 if (self.isSearchRemote) {
-                    if (searchValueLength == 0) {
+                    if (searchValueLength === 0) {
                         self.remoteSearchIntegrate(null);
                     } else if (searchValueLength >= 1) {
                         self.onSearch(searchValue)
@@ -484,6 +486,7 @@ export function VanillaJsMultiSelectBox(element, options) {
             let isShowHideCommand = e.target.tagName === 'SPAN';
             let isCheckCommand = e.target.tagName === 'I';
             let liClicked = e.target.parentElement;
+
             if (!liClicked.hasAttribute("data-value")) {
                 if (liClicked.classList.contains("grouped-option")) {
                     if (!isShowHideCommand && !isCheckCommand) return;
@@ -513,11 +516,11 @@ export function VanillaJsMultiSelectBox(element, options) {
             let choiceText = e.target.getAttribute("data-text");
             let className = e.target.getAttribute("class");
 
-            if (className && className.indexOf("disabled") != -1) {
+            if (className && className.indexOf("disabled") !== -1) {
                 return;
             }
 
-            if (className && className.indexOf("overflow") != -1) {
+            if (className && className.indexOf("overflow") !== -1) {
                 return;
             }
 
@@ -542,7 +545,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                 Array.prototype.slice.call(self.listElements).forEach(function (x) {
                     x.classList.remove("active");
                 });
-                if (choiceText != "") {
+                if (choiceText !== "") {
                     e.target.classList.add("active");
                 }
                 self.privateSendChange();
@@ -552,7 +555,7 @@ export function VanillaJsMultiSelectBox(element, options) {
             } else {
                 let wasActive = false;
                 if (className) {
-                    wasActive = className.indexOf("active") != -1;
+                    wasActive = className.indexOf("active") !== -1;
                 }
                 if (wasActive) {
                     e.target.classList.remove("active");
@@ -569,7 +572,7 @@ export function VanillaJsMultiSelectBox(element, options) {
                 let nrAll = 0;
                 for (let i = 0; i < self.options.length; i++) {
                     nrAll++;
-                    if (self.options[i].value == choiceValue) {
+                    if (self.options[i].value === choiceValue) {
                         self.options[i].selected = !wasActive;
                     }
                     if (self.options[i].selected) {
@@ -578,16 +581,15 @@ export function VanillaJsMultiSelectBox(element, options) {
                         sep = ",";
                     }
                 }
-                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
-                    let wordForAll = self.userOptions.translations.all || "all";
-                    selectedTexts = wordForAll;
-                } else if (self.multipleSize != -1) {
+                if (nrAll === nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
+                    selectedTexts = self.userOptions.translations.all || "all";
+                } else if (self.multipleSize !== -1) {
                     if (nrActives > self.multipleSize) {
                         let wordForItems = self.userOptions.translations.items || "items"
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
-                if (self.userOptions.placeHolder != ""){
+                if (self.userOptions.placeHolder !== ""){
                     self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
                 } else {
                     self.title.textContent = selectedTexts;
@@ -598,7 +600,7 @@ export function VanillaJsMultiSelectBox(element, options) {
             }
             e.preventDefault();
             e.stopPropagation();
-            if (self.userOptions.placeHolder != "" && self.title.textContent == "") {
+            if (self.userOptions.placeHolder !== "" && self.title.textContent === "") {
                 self.title.textContent = self.userOptions.placeHolder;
             }
         });
@@ -621,13 +623,13 @@ VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
     let self = this;
     if(data == null || data.length < 1) return;
     if(!self.isOptgroups){
-        self.isOptgroups = data[0].parent != undefined && data[0].parent != "";
+        self.isOptgroups = data[0].parent !== undefined && data[0].parent !== "";
     }
 
     if(self.isOptgroups){
         let groups = {};
         data = data.filter(function(x){
-            return x.parent != undefined && x.parent != "";
+            return x.parent !== undefined && x.parent !== "";
         });
 
         data.forEach(function (x) {
@@ -639,15 +641,15 @@ VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
             let anOptgroup = document.createElement("optgroup");
             anOptgroup.setAttribute("label", group);
 
-            options = data.filter(function(x){
-                return x.parent == group;
+            const options = data.filter(function(x){
+                return x.parent === group;
             });
             options.forEach(function (x) {
                 let anOption = document.createElement("option");
                 anOption.value = x.value;
                 anOption.text = x.text;
                 if(x.selected){
-                    anOption.setAttribute("selected",true)
+                    anOption.setAttribute("selected",'selected')
                 }
                 anOptgroup.appendChild(anOption);
             });
@@ -669,7 +671,7 @@ VanillaJsMultiSelectBox.prototype.buildSelect = function (data) {
 VanillaJsMultiSelectBox.prototype.remoteSearchIntegrate = function (data) {
     let self = this;
 
-    if (data == null || data.length == 0) {
+    if (data == null || data.length === 0) {
         let dataChecked = self.optionsCheckedToData();
         if(dataChecked)
             data = dataChecked.slice(0);
@@ -678,7 +680,7 @@ VanillaJsMultiSelectBox.prototype.remoteSearchIntegrate = function (data) {
         let dataChecked = self.optionsCheckedToData();
         if (dataChecked.length > 0){
             for (var i = data.length - 1; i >= 0; i--) {
-                if(dataChecked.indexOf(data[i].id) !=-1){
+                if(dataChecked.indexOf(data[i].id) !==-1){
                     data.slice(i,1);
                 }
             }
@@ -700,7 +702,7 @@ VanillaJsMultiSelectBox.prototype.optionsCheckedToData = function () {
             if(oneData.value !== "all"){
                 if(self.isOptgroups){
                     let parentId = x.getAttribute("data-parent");
-                    if(keepParents[parentId]!=undefined){
+                    if(keepParents[parentId] !== undefined){
                         oneData.parent = keepParents[parentId];
                     }else{
                         let parentPtr = self.ul.querySelector("#"+parentId);
@@ -725,7 +727,7 @@ VanillaJsMultiSelectBox.prototype.removeOptionsNotChecked = function (data) {
         let maxToRemove = presentSize + newSearchSize - minimumSize - 1;
         let removed = 0;
         for (var i = self.root.length - 1; i >= 0; i--) {
-            if (self.root.options[i].selected == false) {
+            if (self.root.options[i].selected === false) {
                 if (removed <= maxToRemove) {
                     removed++;
                     self.root.remove(i);
@@ -750,7 +752,7 @@ VanillaJsMultiSelectBox.prototype.changeTree = function (data, options) {
 
 VanillaJsMultiSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
     let self = this;
-    if (data == null || data.length == 0) return;
+    if (data == null || data.length === 0) return;
     while(self.root.firstChild)
         self.root.removeChild(self.root.firstChild);
 
@@ -772,8 +774,6 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
     let selectedTexts = ""
     let sep = "";
     let nrActives = 0;
-    let nrAll = 0;
-
     if (self.isOptgroups) {
         if (this.root.getElementsByTagName('optgroup') !== null) {
             self.options = this.root.options;
@@ -817,7 +817,7 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
                     li.setAttribute("data-value", value);
                     li.setAttribute("data-text", text);
                     li.setAttribute("data-parent", optId);
-                    if (classes.length != 0) {
+                    if (classes.length !== 0) {
                         classes.forEach(function (x) {
                             li.classList.add(x);
                         });
@@ -829,7 +829,7 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
                         li.classList.add("active");
                         if (!self.isMultiple) {
                             self.title.textContent = text;
-                            if (classes.length != 0) {
+                            if (classes.length !== 0) {
                                 classes.forEach(function (x) {
                                     self.title.classList.add(x);
                                 });
@@ -846,7 +846,7 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
         Array.prototype.slice.call(self.options).forEach(function (x) {
             let text = x.textContent;
             let value = x.value;
-            if (value != "all") {
+            if (value !== "all") {
                 let originalAttrs;
                 if (x.hasAttributes()) {
                     originalAttrs = Array.prototype.slice.call(x.attributes)
@@ -895,7 +895,7 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
                     li.classList.add("active");
                     if (!self.isMultiple) {
                         self.title.textContent = text;
-                        if (classes.length != 0) {
+                        if (classes.length !== 0) {
                             classes.forEach(function (x) {
                                 self.title.classList.add(x);
                             });
@@ -915,13 +915,13 @@ VanillaJsMultiSelectBox.prototype.reloadTree = function () {
 VanillaJsMultiSelectBox.prototype.disableItems = function (values) {
     let self = this;
     let foundValues = [];
-    if (VanillaJsMultiSelectBox_type(values) == "string") {
+    if (VanillaJsMultiSelectBox_type(values) === "string") {
         values = values.split(",");
     }
 
-    if (VanillaJsMultiSelectBox_type(values) == "array") {
+    if (VanillaJsMultiSelectBox_type(values) === "array") {
         Array.prototype.slice.call(self.options).forEach(function (x) {
-            if (values.indexOf(x.value) != -1) {
+            if (values.indexOf(x.value) !== -1) {
                 foundValues.push(x.value);
                 x.setAttribute("disabled", "");
             }
@@ -929,7 +929,7 @@ VanillaJsMultiSelectBox.prototype.disableItems = function (values) {
     }
     Array.prototype.slice.call(self.listElements).forEach(function (x) {
         let val = x.getAttribute("data-value");
-        if (foundValues.indexOf(val) != -1) {
+        if (foundValues.indexOf(val) !== -1) {
             x.classList.add("disabled");
         }
     });
@@ -938,11 +938,11 @@ VanillaJsMultiSelectBox.prototype.disableItems = function (values) {
 VanillaJsMultiSelectBox.prototype.enableItems = function (values) {
     let self = this;
     let foundValues = [];
-    if (VanillaJsMultiSelectBox_type(values) == "string") {
+    if (VanillaJsMultiSelectBox_type(values) === "string") {
         values = values.split(",");
     }
 
-    if (VanillaJsMultiSelectBox_type(values) == "array") {
+    if (VanillaJsMultiSelectBox_type(values) === "array") {
         Array.prototype.slice.call(self.options).forEach(function (x) {
             if (values.indexOf(x.value) != -1) {
                 foundValues.push(x.value);
@@ -952,7 +952,7 @@ VanillaJsMultiSelectBox.prototype.enableItems = function (values) {
     }
 
     Array.prototype.slice.call(self.listElements).forEach(function (x) {
-        if (foundValues.indexOf(x.getAttribute("data-value")) != -1) {
+        if (foundValues.indexOf(x.getAttribute("data-value")) !== -1) {
             x.classList.remove("disabled");
         }
     });
@@ -960,7 +960,7 @@ VanillaJsMultiSelectBox.prototype.enableItems = function (values) {
 
 VanillaJsMultiSelectBox.prototype.checkSelectMax = function (nrActives) {
     let self = this;
-    if (self.maxSelect == Infinity || !self.isMultiple) return;
+    if (self.maxSelect === Infinity || !self.isMultiple) return;
     if (self.maxSelect <= nrActives) {
         Array.prototype.slice.call(self.listElements).forEach(function (x) {
             if (x.hasAttribute('data-value')) {
@@ -985,11 +985,11 @@ VanillaJsMultiSelectBox.prototype.checkUncheckFromChild = function (liClicked) {
     if (!self.isMultiple) return;
     let listElements = self.drop.querySelectorAll("li");
     let childrenElements = Array.prototype.slice.call(listElements).filter(function (el) {
-        return el.hasAttribute("data-parent") && el.getAttribute('data-parent') == parentId  && !el.classList.contains('hidden-search') ;
+        return el.hasAttribute("data-parent") && el.getAttribute('data-parent') === parentId  && !el.classList.contains('hidden-search') ;
     });
     let nrChecked = 0;
     let nrCheckable = childrenElements.length;
-    if (nrCheckable == 0) return;
+    if (nrCheckable === 0) return;
     childrenElements.forEach(function (el) {
         if (el.classList.contains('active')) nrChecked++;
     });
@@ -1010,19 +1010,18 @@ VanillaJsMultiSelectBox.prototype.checkUncheckFromParent = function (liClicked) 
     if (!self.isMultiple) return;
     let listElements = self.drop.querySelectorAll("li");
     let childrenElements = Array.prototype.slice.call(listElements).filter(function (el) {
-        return el.hasAttribute("data-parent") && el.getAttribute('data-parent') == parentId && !el.classList.contains('hidden-search');
+        return el.hasAttribute("data-parent") && el.getAttribute('data-parent') === parentId && !el.classList.contains('hidden-search');
     });
     let nrChecked = 0;
     let nrCheckable = childrenElements.length;
-    if (nrCheckable == 0) return;
+    if (nrCheckable === 0) return;
     childrenElements.forEach(function (el) {
         if (el.classList.contains('active')) nrChecked++;
     });
     if (nrChecked === nrCheckable || nrChecked === 0) {
         //check all or uncheckAll : just do the opposite
         childrenElements.forEach(function (el) {
-            var event = document.createEvent('HTMLEvents');
-            event.initEvent('click', true, false);
+            const event = new CustomEvent('click', { bubbles: true, cancelable: false });
             el.dispatchEvent(event);
         });
         if (nrChecked === 0) {
@@ -1035,8 +1034,7 @@ VanillaJsMultiSelectBox.prototype.checkUncheckFromParent = function (liClicked) 
         liClicked.classList.remove("checked");
         childrenElements.forEach(function (el) {
             if (!el.classList.contains('active')) {
-                var event = document.createEvent('HTMLEvents');
-                event.initEvent('click', true, false);
+                const event = new CustomEvent('click', { bubbles: true, cancelable: false });
                 el.dispatchEvent(event);
             }
         });
@@ -1068,7 +1066,7 @@ VanillaJsMultiSelectBox.prototype.checkUncheckAll = function () {
         if (nrChecked === nrCheckable && self.userOptions.disableAllMessage === false) {
             // check the checkAll checkbox
             let selectedTexts = self.userOptions.translations.all || "all";
-            if (self.userOptions.placeHolder != ""){
+            if (self.userOptions.placeHolder !== ""){
                 self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
             } else {
                 self.title.textContent = selectedTexts;
@@ -1079,7 +1077,7 @@ VanillaJsMultiSelectBox.prototype.checkUncheckAll = function () {
         } else if (nrChecked === 0) {
             // uncheck the checkAll checkbox
             let selectedTexts = self.userOptions.placeHolder || "-";
-            if (self.userOptions.placeHolder != ""){
+            if (self.userOptions.placeHolder !== ""){
                 let selectedTexts = "-";
                 self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
             } else {
@@ -1096,11 +1094,11 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
     let self = this;
     let listElements = self.drop.querySelectorAll("li");
 
-    if (values == null || values == undefined || values == "") {
+    if (values === null || values === undefined || values === "") {
         self.empty();
     } else {
         if (self.isMultiple) {
-            if (VanillaJsMultiSelectBox_type(values) == "string") {
+            if (VanillaJsMultiSelectBox_type(values) === "string") {
                 if (values === "all") {
                     values = [];
                     Array.prototype.slice.call(listElements).forEach(function (x) {
@@ -1144,7 +1142,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                 }
             }
             let foundValues = [];
-            if (VanillaJsMultiSelectBox_type(values) == "array") {
+            if (VanillaJsMultiSelectBox_type(values) === "array") {
                 Array.prototype.slice.call(self.options).forEach(function (x) {
                     if (values.indexOf(x.value) !== -1) {
                         x.selected = true;
@@ -1161,7 +1159,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                     if (x.value !== 'all') {
                         nrAll++;
                     }
-                    if (foundValues.indexOf(x.getAttribute("data-value")) != -1) {
+                    if (foundValues.indexOf(x.getAttribute("data-value")) !== -1) {
                         x.classList.add("active");
                         nrActives++;
                         selectedTexts += sep + x.getAttribute("data-text");
@@ -1170,16 +1168,15 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                         x.classList.remove("active");
                     }
                 });
-                if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
-                    let wordForAll = self.userOptions.translations.all || "all";
-                    selectedTexts = wordForAll;
-                } else if (self.multipleSize != -1) {
+                if (nrAll === nrActives - Number(!self.userOptions.disableSelectAll) && self.userOptions.disableAllMessage === false) {
+                    selectedTexts = self.userOptions.translations.all || "all";
+                } else if (self.multipleSize !== -1) {
                     if (nrActives > self.multipleSize) {
                         let wordForItems = self.userOptions.translations.items || "items"
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
-                if (self.userOptions.placeHolder != ""){
+                if (self.userOptions.placeHolder !== ""){
                     self.title.textContent = self.userOptions.placeHolder + ": "+selectedTexts;
                 } else {
                     self.title.textContent = selectedTexts;
@@ -1192,9 +1189,9 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                let liVal = x.getAttribute("data-value") == values;
+                let liVal = x.getAttribute("data-value") === values;
                 if(liVal !== "all"){
-                    if (liVal == values) {
+                    if (liVal === values) {
                         x.classList.add("active");
                         found = true;
                         text = x.getAttribute("data-text")
@@ -1204,7 +1201,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
                 }
             });
             Array.prototype.slice.call(self.options).forEach(function (x) {
-                if (x.value == values) {
+                if (x.value === values) {
                     x.selected = true;
                     className = x.getAttribute("class");
                     if (!className) className = "";
@@ -1214,10 +1211,10 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
             });
             if (found) {
                 self.title.textContent = text;
-                if (self.userOptions.placeHolder != "" && self.title.textContent == "") {
+                if (self.userOptions.placeHolder !== "" && self.title.textContent === "") {
                     self.title.textContent = self.userOptions.placeHolder;
                 }
-                if (className != "") {
+                if (className !== "") {
                     self.title.setAttribute("class", className + " title");
                 } else {
                     self.title.setAttribute("class", "title");
@@ -1228,8 +1225,7 @@ VanillaJsMultiSelectBox.prototype.setValue = function (values) {
 }
 
 VanillaJsMultiSelectBox.prototype.privateSendChange = function () {
-    let event = document.createEvent('HTMLEvents');
-    event.initEvent('change', true, false);
+    const event = new CustomEvent('change', { bubbles: true, cancelable: false });
     this.root.dispatchEvent(event);
 }
 
@@ -1247,7 +1243,7 @@ VanillaJsMultiSelectBox.prototype.empty = function () {
         x.selected = false;
     });
     this.title.textContent = "";
-    if (this.userOptions.placeHolder != "" && this.title.textContent == "") {
+    if (this.userOptions.placeHolder !== "" && this.title.textContent === "") {
         this.title.textContent = this.userOptions.placeHolder;
     }
     this.checkUncheckAll();
@@ -1265,6 +1261,7 @@ VanillaJsMultiSelectBox.prototype.destroy = function () {
 VanillaJsMultiSelectBox.prototype.disable = function () {
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
+        let button;
         button = already.querySelector("button")
         if (button) button.classList.add("disabled");
         this.isDisabled = true;
@@ -1273,15 +1270,13 @@ VanillaJsMultiSelectBox.prototype.disable = function () {
 VanillaJsMultiSelectBox.prototype.enable = function () {
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
+        let button;
         button = already.querySelector("button")
         if (button) button.classList.remove("disabled");
         this.isDisabled = false;
     }
 }
 
-VanillaJsMultiSelectBox.prototype.showOptions = function () {
-    console.log(this.userOptions);
-}
 // Polyfills for IE
 if (!('remove' in Element.prototype)) {
     Element.prototype.remove = function () {
@@ -1294,8 +1289,5 @@ if (!('remove' in Element.prototype)) {
 export function VanillaJsMultiSelectBox_type(target) {
     const computedType = Object.prototype.toString.call(target);
     const stripped = computedType.replace("[object ", "").replace("]", "");
-    const lowercased = stripped.toLowerCase();
-    return lowercased;
+    return stripped.toLowerCase();
 }
-
-
